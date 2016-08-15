@@ -1,0 +1,465 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C75272041D563C6A002BCFE4 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75272031D563C6A002BCFE4 /* ChatVC.swift */; };
+		C75272061D5649A7002BCFE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C75272051D5649A7002BCFE4 /* GoogleService-Info.plist */; };
+		C758F4B61D57CAD4008713FF /* RoomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C758F4B51D57CAD4008713FF /* RoomCollectionViewCell.swift */; };
+		C758F4B81D57CBCA008713FF /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = C758F4B71D57CBCA008713FF /* Room.swift */; };
+		C7C76B031D5A46C0000FF06E /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C76B021D5A46C0000FF06E /* ChatTableViewCell.swift */; };
+		C7DAB81E1D567814002E90A8 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DAB81D1D567814002E90A8 /* DataService.swift */; };
+		C7DAB8231D568551002E90A8 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C7DAB8201D568551002E90A8 /* ProgressHUD.bundle */; };
+		C7DAB8241D568551002E90A8 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DAB8221D568551002E90A8 /* ProgressHUD.m */; };
+		C7DCCF6F1D5515F500533079 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DCCF6E1D5515F500533079 /* AppDelegate.swift */; };
+		C7DCCF741D5515F500533079 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DCCF721D5515F500533079 /* Main.storyboard */; };
+		C7DCCF761D5515F500533079 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7DCCF751D5515F500533079 /* Assets.xcassets */; };
+		C7DCCF791D5515F500533079 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7DCCF771D5515F500533079 /* LaunchScreen.storyboard */; };
+		C7DCCF841D55168000533079 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DCCF831D55168000533079 /* LoginViewController.swift */; };
+		C7DCCF861D5516A200533079 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DCCF851D5516A200533079 /* SignUpVC.swift */; };
+		C7DCCF881D55171C00533079 /* RoomCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DCCF871D55171C00533079 /* RoomCollectionVC.swift */; };
+		C7DCCF8A1D55175500533079 /* CreateRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DCCF891D55175500533079 /* CreateRoomVC.swift */; };
+		C7DCCF8C1D5517CE00533079 /* ProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DCCF8B1D5517CE00533079 /* ProfileTableVC.swift */; };
+		CBD49929B6FADFC96610D46D /* Pods_PMChaaty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77315C3B0975FAEB88AD4043 /* Pods_PMChaaty.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		77315C3B0975FAEB88AD4043 /* Pods_PMChaaty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PMChaaty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8191F93741F6DE64EB616B5A /* Pods-PMChaaty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMChaaty.release.xcconfig"; path = "Pods/Target Support Files/Pods-PMChaaty/Pods-PMChaaty.release.xcconfig"; sourceTree = "<group>"; };
+		C75272031D563C6A002BCFE4 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		C75272051D5649A7002BCFE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C758F4B51D57CAD4008713FF /* RoomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCollectionViewCell.swift; sourceTree = "<group>"; };
+		C758F4B71D57CBCA008713FF /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		C7C76B021D5A46C0000FF06E /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		C7DAB81D1D567814002E90A8 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		C7DAB81F1D568550002E90A8 /* PMChaaty-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PMChaaty-Bridging-Header.h"; sourceTree = "<group>"; };
+		C7DAB8201D568551002E90A8 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		C7DAB8211D568551002E90A8 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		C7DAB8221D568551002E90A8 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		C7DCCF6B1D5515F500533079 /* PMChaaty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PMChaaty.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7DCCF6E1D5515F500533079 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C7DCCF731D5515F500533079 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C7DCCF751D5515F500533079 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C7DCCF781D5515F500533079 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C7DCCF7A1D5515F500533079 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7DCCF831D55168000533079 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C7DCCF851D5516A200533079 /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		C7DCCF871D55171C00533079 /* RoomCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCollectionVC.swift; sourceTree = "<group>"; };
+		C7DCCF891D55175500533079 /* CreateRoomVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRoomVC.swift; sourceTree = "<group>"; };
+		C7DCCF8B1D5517CE00533079 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableVC.swift; sourceTree = "<group>"; };
+		E11BDD00CF581EEBA7289343 /* Pods-PMChaaty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PMChaaty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PMChaaty/Pods-PMChaaty.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C7DCCF681D5515F500533079 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBD49929B6FADFC96610D46D /* Pods_PMChaaty.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1DBCA087FEDEBAA0EFDCAD24 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E11BDD00CF581EEBA7289343 /* Pods-PMChaaty.debug.xcconfig */,
+				8191F93741F6DE64EB616B5A /* Pods-PMChaaty.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4F50F565C9B7044C973D3CEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77315C3B0975FAEB88AD4043 /* Pods_PMChaaty.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C758F4B41D57CAB1008713FF /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				C7DAB8201D568551002E90A8 /* ProgressHUD.bundle */,
+				C7DAB8211D568551002E90A8 /* ProgressHUD.h */,
+				C7DAB8221D568551002E90A8 /* ProgressHUD.m */,
+				C7DAB81F1D568550002E90A8 /* PMChaaty-Bridging-Header.h */,
+			);
+			name = ProgressHUD;
+			sourceTree = "<group>";
+		};
+		C7DCCF621D5515F500533079 = {
+			isa = PBXGroup;
+			children = (
+				C7DCCF6D1D5515F500533079 /* PMChaaty */,
+				C7DCCF6C1D5515F500533079 /* Products */,
+				1DBCA087FEDEBAA0EFDCAD24 /* Pods */,
+				4F50F565C9B7044C973D3CEE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C7DCCF6C1D5515F500533079 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C7DCCF6B1D5515F500533079 /* PMChaaty.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C7DCCF6D1D5515F500533079 /* PMChaaty */ = {
+			isa = PBXGroup;
+			children = (
+				C7DCCF6E1D5515F500533079 /* AppDelegate.swift */,
+				C7DCCF801D55163D00533079 /* Model */,
+				C7DCCF811D55164900533079 /* View */,
+				C7DCCF821D55164F00533079 /* Controller */,
+				C7DCCF721D5515F500533079 /* Main.storyboard */,
+				C7DCCF751D5515F500533079 /* Assets.xcassets */,
+				C7DCCF771D5515F500533079 /* LaunchScreen.storyboard */,
+				C7DCCF7A1D5515F500533079 /* Info.plist */,
+				C75272051D5649A7002BCFE4 /* GoogleService-Info.plist */,
+			);
+			path = PMChaaty;
+			sourceTree = "<group>";
+		};
+		C7DCCF801D55163D00533079 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C7DAB81D1D567814002E90A8 /* DataService.swift */,
+				C758F4B71D57CBCA008713FF /* Room.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C7DCCF811D55164900533079 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C758F4B41D57CAB1008713FF /* ProgressHUD */,
+				C758F4B51D57CAD4008713FF /* RoomCollectionViewCell.swift */,
+				C7C76B021D5A46C0000FF06E /* ChatTableViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		C7DCCF821D55164F00533079 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C7DCCF831D55168000533079 /* LoginViewController.swift */,
+				C7DCCF851D5516A200533079 /* SignUpVC.swift */,
+				C7DCCF871D55171C00533079 /* RoomCollectionVC.swift */,
+				C7DCCF891D55175500533079 /* CreateRoomVC.swift */,
+				C7DCCF8B1D5517CE00533079 /* ProfileTableVC.swift */,
+				C75272031D563C6A002BCFE4 /* ChatVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C7DCCF6A1D5515F500533079 /* PMChaaty */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C7DCCF7D1D5515F500533079 /* Build configuration list for PBXNativeTarget "PMChaaty" */;
+			buildPhases = (
+				DC122B41FA7BB12C3FD4C93E /* [CP] Check Pods Manifest.lock */,
+				C7DCCF671D5515F500533079 /* Sources */,
+				C7DCCF681D5515F500533079 /* Frameworks */,
+				C7DCCF691D5515F500533079 /* Resources */,
+				D1CDF20361F9698FF1AF9FD6 /* [CP] Embed Pods Frameworks */,
+				CCC3B7590392486C5135440B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PMChaaty;
+			productName = PMChaaty;
+			productReference = C7DCCF6B1D5515F500533079 /* PMChaaty.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C7DCCF631D5515F500533079 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Prateek Mahawar";
+				TargetAttributes = {
+					C7DCCF6A1D5515F500533079 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 2QJCV27NGS;
+					};
+				};
+			};
+			buildConfigurationList = C7DCCF661D5515F500533079 /* Build configuration list for PBXProject "PMChaaty" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C7DCCF621D5515F500533079;
+			productRefGroup = C7DCCF6C1D5515F500533079 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C7DCCF6A1D5515F500533079 /* PMChaaty */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C7DCCF691D5515F500533079 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7DCCF791D5515F500533079 /* LaunchScreen.storyboard in Resources */,
+				C75272061D5649A7002BCFE4 /* GoogleService-Info.plist in Resources */,
+				C7DCCF761D5515F500533079 /* Assets.xcassets in Resources */,
+				C7DAB8231D568551002E90A8 /* ProgressHUD.bundle in Resources */,
+				C7DCCF741D5515F500533079 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CCC3B7590392486C5135440B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PMChaaty/Pods-PMChaaty-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1CDF20361F9698FF1AF9FD6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PMChaaty/Pods-PMChaaty-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC122B41FA7BB12C3FD4C93E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C7DCCF671D5515F500533079 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7DAB8241D568551002E90A8 /* ProgressHUD.m in Sources */,
+				C7DCCF8A1D55175500533079 /* CreateRoomVC.swift in Sources */,
+				C75272041D563C6A002BCFE4 /* ChatVC.swift in Sources */,
+				C7DCCF8C1D5517CE00533079 /* ProfileTableVC.swift in Sources */,
+				C7DCCF861D5516A200533079 /* SignUpVC.swift in Sources */,
+				C7DCCF841D55168000533079 /* LoginViewController.swift in Sources */,
+				C7DCCF6F1D5515F500533079 /* AppDelegate.swift in Sources */,
+				C758F4B61D57CAD4008713FF /* RoomCollectionViewCell.swift in Sources */,
+				C7DCCF881D55171C00533079 /* RoomCollectionVC.swift in Sources */,
+				C7C76B031D5A46C0000FF06E /* ChatTableViewCell.swift in Sources */,
+				C7DAB81E1D567814002E90A8 /* DataService.swift in Sources */,
+				C758F4B81D57CBCA008713FF /* Room.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C7DCCF721D5515F500533079 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C7DCCF731D5515F500533079 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C7DCCF771D5515F500533079 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C7DCCF781D5515F500533079 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C7DCCF7B1D5515F500533079 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C7DCCF7C1D5515F500533079 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C7DCCF7E1D5515F500533079 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E11BDD00CF581EEBA7289343 /* Pods-PMChaaty.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = PMChaaty/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Prateek.PMChaaty;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PMChaaty/PMChaaty-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C7DCCF7F1D5515F500533079 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8191F93741F6DE64EB616B5A /* Pods-PMChaaty.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = PMChaaty/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Prateek.PMChaaty;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PMChaaty/PMChaaty-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C7DCCF661D5515F500533079 /* Build configuration list for PBXProject "PMChaaty" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7DCCF7B1D5515F500533079 /* Debug */,
+				C7DCCF7C1D5515F500533079 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C7DCCF7D1D5515F500533079 /* Build configuration list for PBXNativeTarget "PMChaaty" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7DCCF7E1D5515F500533079 /* Debug */,
+				C7DCCF7F1D5515F500533079 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C7DCCF631D5515F500533079 /* Project object */;
+}
