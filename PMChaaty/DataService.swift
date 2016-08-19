@@ -177,6 +177,7 @@ class DataService {
                         print("Error updating email address : \(error.localizedDescription)")
                     } else {
                         print("Email Update")
+                        
                     }
                 })
                 

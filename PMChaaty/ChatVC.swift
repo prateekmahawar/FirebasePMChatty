@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import IQKeyboardManagerSwift
 
 private struct Constants {
     static let cellIdMessageReceived = "MessageCellYou"
@@ -24,6 +25,7 @@ class ChatVC: UIViewController {
     var messages: [FIRDataSnapshot] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        IQKeyboardManager.sharedManager().enable = false
         tableView.delegate =  self
         tableView.dataSource = self
         
@@ -35,6 +37,48 @@ class ChatVC: UIViewController {
         }
         
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChatVC.showOrHideKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChatVC.showOrHideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
+        
+    }
+    
+    @IBOutlet weak var constraintToBottom: NSLayoutConstraint!
+    
+    func showOrHideKeyboard(notification:NSNotification) {
+        if let keyboardInfo: Dictionary = notification.userInfo {
+            if notification.name == UIKeyboardWillShowNotification {
+                UIView.animateWithDuration(1, animations: { () in
+                    self.constraintToBottom.constant = (keyboardInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
+                    self.view.layoutIfNeeded()
+                }) { (completed: Bool) -> Void in
+                    
+                    self.tableViewScrollToBottom(true)
+                    
+                }
+            } else if notification.name == UIKeyboardWillHideNotification {
+                UIView.animateWithDuration(1, animations: {  () in
+                    self.constraintToBottom.constant = 0
+                    self.view.layoutIfNeeded()
+                }) { (completed: Bool) -> Void in
+                   
+                    self.tableViewScrollToBottom(true)
+                    
+                }
+            }
+        }
+    }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    
     @IBAction func sendBtnPressed(sender: AnyObject) {
         self.chatTextField.resignFirstResponder()
         if chatTextField != "" {
@@ -84,9 +128,9 @@ extension ChatVC: UITableViewDelegate , UITableViewDataSource {
         let message = messageSnapshot.value as! Dictionary<String, AnyObject>
         
         let messageCount = message["message"] as! String
-        let nolines = (messageCount.characters.count / 29) + 1
+        let nolines = Int((messageCount.characters.count / 29)) + 1
         if nolines > 1 {
-            return 45.0 * CGFloat(nolines) - 15.0 * CGFloat(nolines)
+            return 35.0 * CGFloat(nolines)
         }
         else {
             return 45.0
@@ -111,4 +155,10 @@ extension ChatVC: UITableViewDelegate , UITableViewDataSource {
         })
     }
     
+}
+extension ChatVC: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
