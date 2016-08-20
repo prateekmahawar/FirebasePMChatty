@@ -11,5 +11,6 @@ target 'PMChaaty' do
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'IQKeyboardManagerSwift'
+  pod 'GoogleSignIn'
 
 end

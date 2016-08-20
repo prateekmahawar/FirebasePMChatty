@@ -1,3 +1,4 @@
+
 //
 //  LoginViewController.swift
 //  PMChaaty
@@ -7,8 +8,9 @@
 //
 
 import UIKit
+import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
     @IBOutlet weak var emailTxtField: UITextField!
     @IBOutlet weak var passwordTxtField: UITextField!
@@ -20,6 +22,10 @@ class LoginViewController: UIViewController {
         dismissKeyboard.numberOfTapsRequired = 1
         view.addGestureRecognizer(dismissKeyboard)
         
+        //Google SignIn Delegate(GIDSignInUIDelegate, GIDSignInDelegate) Functions
+        GIDSignIn.sharedInstance().clientID = "872245422297-slg7bp6liqsiqsdhfmlkuj3m3sua4oea.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
         
     }
     
@@ -36,6 +42,17 @@ class LoginViewController: UIViewController {
         DataService.dataService.logIn(email, password: password)
     }
 
+    //Google Sign In Functions
+    @IBAction func googleLoginBtnPressed(sender: AnyObject) {
+        GIDSignIn.sharedInstance().signIn()
+        
+    }
     
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+        ProgressHUD.show("Signing In....")
+        print(user.authentication)
+        DataService.dataService.loginWithGoogle(user.authentication)
+        
+    }
 
 }

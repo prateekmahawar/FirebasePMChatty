@@ -57,11 +57,20 @@ class CreateRoomVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }
     @IBAction func createRoomBtnTapped(sender: AnyObject) {
         
+        if photoImg.image != nil {
         var data = NSData()
         data = UIImageJPEGRepresentation(photoImg.image!, 0.1)!
-        DataService.dataService.CreateNewRoom((FIRAuth.auth()?.currentUser)!, caption: captionLbl.text!, data: data)
-        dismissViewControllerAnimated(true, completion: nil)
         
-    }
+        guard let captionText = captionLbl.text where !captionText.isEmpty else {
+            ProgressHUD.showError("Username/Image can't be empty")
+            return
+        }
+        
+        DataService.dataService.CreateNewRoom((FIRAuth.auth()?.currentUser)!, caption: captionText, data: data)
+        dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            ProgressHUD.showError("Username/Image can't be empty")
+        }
+        }
     
 }

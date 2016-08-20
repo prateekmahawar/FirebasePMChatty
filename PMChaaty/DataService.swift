@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseStorage
+import GoogleSignIn
 
 let roofRef = FIRDatabase.database().reference()
 
@@ -137,9 +138,13 @@ class DataService {
     
     //Logout Func
     func logout() {
+        
         let firebaseAuth = FIRAuth.auth()
         do {
+            
+            GIDSignIn.sharedInstance().disconnect()
             try firebaseAuth?.signOut()
+           
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let logInVC = storyboard.instantiateViewControllerWithIdentifier("LogInVC")
             UIApplication.sharedApplication().keyWindow?.rootViewController = logInVC
@@ -151,7 +156,7 @@ class DataService {
     //Update Profile
     func SaveProfile(username:String, email: String, data:NSData) {
         let user = FIRAuth.auth()?.currentUser!
-        let filePath = "\(user!.uid)/\(NSDate.timeIntervalSinceReferenceDate())"
+        let filePath = "profileImage/\(user!.uid)"
         let metaData = FIRStorageMetadata()
         metaData.contentType = "image/jpg"
         self.storageRef.child(filePath).putData(data, metadata: metaData) { (metadata, error) in
@@ -160,10 +165,10 @@ class DataService {
                 return
             }
             self.fileUrl = metadata!.downloadURLs![0].absoluteString
-            let changeRequestProfile = user?.profileChangeRequest()
-            changeRequestProfile?.photoURL = NSURL(string: self.fileUrl)
-            changeRequestProfile?.displayName = username
-            changeRequestProfile?.commitChangesWithCompletion({ (error) in
+            let changeRequestProfile = user!.profileChangeRequest()
+            changeRequestProfile.photoURL = NSURL(string: self.fileUrl)
+            changeRequestProfile.displayName = username
+            changeRequestProfile.commitChangesWithCompletion({ (error) in
                 if let error = error {
                     print(error.localizedDescription)
                     ProgressHUD.showError("Network Error")
@@ -203,6 +208,29 @@ class DataService {
             callback(snap)
             })
         })
+    }
+    //Google Sign-In
+    func loginWithGoogle(authrntication: GIDAuthentication) {
+        
+        let credential = FIRGoogleAuthProvider.credentialWithIDToken(authrntication.idToken, accessToken: authrntication.accessToken)
+        FIRAuth.auth()?.signInWithCredential(credential, completion: { (user:FIRUser?, error:NSError?) in
+            if error != nil {
+                print(error?.localizedDescription)
+                return
+            }  else {
+                let email = user?.email
+                let username = user?.displayName
+                let imageUrle = user?.photoURL
+                let imageUrl = String(imageUrle!)
+                
+                self.PEOPLE_REF.child((user?.uid)!).updateChildValues(["username" : username!, "email": email! , "profileImage" : imageUrl])
+                
+                ProgressHUD.showSuccess("Succedded")
+                let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.login()
+            }
+        })
+        
     }
     
 }

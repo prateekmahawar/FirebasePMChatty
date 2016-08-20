@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import GoogleSignIn
 
 class ProfileTableVC: UITableViewController , UINavigationControllerDelegate , UIImagePickerControllerDelegate {
     
@@ -19,12 +19,15 @@ class ProfileTableVC: UITableViewController , UINavigationControllerDelegate , U
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Edit Profile"
-        let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileTableVC.selectPhoto(_:)))
-        tap.numberOfTapsRequired = 1
-        profileImage.addGestureRecognizer(tap)
         profileImage.layer.cornerRadius = profileImage.frame.size.height / 2
         profileImage.clipsToBounds = true
         
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileTableVC.selectPhoto(_:)))
+        tap.numberOfTapsRequired = 1
+        profileImage.addGestureRecognizer(tap)
+        
+       
         if let user = DataService.dataService.currentUser {
             username.text = user.displayName
             email.text = user.email
@@ -39,7 +42,10 @@ class ProfileTableVC: UITableViewController , UINavigationControllerDelegate , U
         
     }
 
+    
     func selectPhoto(tap:UITapGestureRecognizer) {
+        
+        if GIDSignIn.sharedInstance().currentUser == nil {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -50,7 +56,9 @@ class ProfileTableVC: UITableViewController , UINavigationControllerDelegate , U
             imagePicker.sourceType = .PhotoLibrary
         }
         self.presentViewController(imagePicker, animated: true, completion: nil)
-
+        } else {
+            ProgressHUD.showError("Edit not allowed")
+        }
     }
     //Imagepicker delegate
     

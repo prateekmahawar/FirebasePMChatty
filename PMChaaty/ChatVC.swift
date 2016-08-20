@@ -128,7 +128,7 @@ extension ChatVC: UITableViewDelegate , UITableViewDataSource {
         let message = messageSnapshot.value as! Dictionary<String, AnyObject>
         
         let messageCount = message["message"] as! String
-        let nolines = Int((messageCount.characters.count / 29)) + 1
+        let nolines = Int((messageCount.characters.count / 20)) + 1
         if nolines > 1 {
             return 35.0 * CGFloat(nolines)
         }
