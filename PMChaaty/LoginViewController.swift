@@ -49,10 +49,15 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     }
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
-        ProgressHUD.show("Signing In....")
+        
+        if user != nil {
         print(user.authentication)
+        ProgressHUD.show("Signing In....")
         DataService.dataService.loginWithGoogle(user.authentication)
+        }
         
     }
+    
+ 
 
 }
