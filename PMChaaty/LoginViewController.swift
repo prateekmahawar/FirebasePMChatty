@@ -10,7 +10,7 @@
 import UIKit
 import GoogleSignIn
 
-class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
+class LoginViewController: UIViewController {
     
     @IBOutlet weak var emailTxtField: UITextField!
     @IBOutlet weak var passwordTxtField: UITextField!
@@ -21,20 +21,20 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         let dismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(CreateRoomVC.dismissKeyboard(_:)))
         dismissKeyboard.numberOfTapsRequired = 1
         view.addGestureRecognizer(dismissKeyboard)
-        
-        //Google SignIn Delegate(GIDSignInUIDelegate, GIDSignInDelegate) Functions
-        GIDSignIn.sharedInstance().clientID = "872245422297-slg7bp6liqsiqsdhfmlkuj3m3sua4oea.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().delegate = self
+//        
+//        //Google SignIn Delegate(GIDSignInUIDelegate, GIDSignInDelegate) Functions
+//        GIDSignIn.sharedInstance().clientID = "872245422297-slg7bp6liqsiqsdhfmlkuj3m3sua4oea.apps.googleusercontent.com"
+//        GIDSignIn.sharedInstance().uiDelegate = self
+//        GIDSignIn.sharedInstance().delegate = self
         
     }
     
-    func dismissKeyboard(tap: UITapGestureRecognizer) {
+    func dismissKeyboard(_ tap: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
 
-    @IBAction func loginBtnTapped(sender: AnyObject) {
-        guard let email = emailTxtField.text where !email.isEmpty , let password = passwordTxtField.text where !password.isEmpty else {
+    @IBAction func loginBtnTapped(_ sender: AnyObject) {
+        guard let email = emailTxtField.text, !email.isEmpty , let password = passwordTxtField.text, !password.isEmpty else {
             ProgressHUD.showError("Email/Password can't be empty")
             return
         }
@@ -43,21 +43,21 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     }
 
     //Google Sign In Functions
-    @IBAction func googleLoginBtnPressed(sender: AnyObject) {
-        GIDSignIn.sharedInstance().signIn()
-        
-    }
-    
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
-        
-        if user != nil {
-        print(user.authentication)
-        ProgressHUD.show("Signing In....")
-        DataService.dataService.loginWithGoogle(user.authentication)
-        }
+//    @IBAction func googleLoginBtnPressed(_ sender: AnyObject) {
+//        GIDSignIn.sharedInstance().signIn()
+//        
+//    }
+//    
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: NSError!) {
+//        
+//        if user != nil {
+//        print(user.authentication)
+//        ProgressHUD.show("Signing In....")
+//        DataService.dataService.loginWithGoogle(user.authentication)
+//        }
         
     }
     
  
 
-}
+

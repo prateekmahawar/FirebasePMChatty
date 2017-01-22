@@ -26,48 +26,48 @@ class CreateRoomVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     }
     
-    func dismissKeyboard(tap: UITapGestureRecognizer) {
+    func dismissKeyboard(_ tap: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
 
     
-    @IBAction func cancelBtnTapped(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelBtnTapped(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func selectPhotoBtnTapped(sender: AnyObject) {
+    @IBAction func selectPhotoBtnTapped(_ sender: AnyObject) {
         let imagepicker = UIImagePickerController()
         imagepicker.delegate = self
         imagepicker.allowsEditing = true
         
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            imagepicker.sourceType = .Camera
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagepicker.sourceType = .camera
         } else {
-            imagepicker.sourceType = .PhotoLibrary
+            imagepicker.sourceType = .photoLibrary
         }
         
-        self.presentViewController(imagepicker, animated: true, completion: nil)
+        self.present(imagepicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         selectedPhoto = info[UIImagePickerControllerEditedImage] as? UIImage
         photoImg.image = selectedPhoto
-        picker.dismissViewControllerAnimated(true, completion: nil)
-        choosePhotoBtn.hidden = true
+        picker.dismiss(animated: true, completion: nil)
+        choosePhotoBtn.isHidden = true
     }
-    @IBAction func createRoomBtnTapped(sender: AnyObject) {
+    @IBAction func createRoomBtnTapped(_ sender: AnyObject) {
         
         if photoImg.image != nil {
-        var data = NSData()
+        var data = Data()
         data = UIImageJPEGRepresentation(photoImg.image!, 0.1)!
         
-        guard let captionText = captionLbl.text where !captionText.isEmpty else {
+        guard let captionText = captionLbl.text, !captionText.isEmpty else {
             ProgressHUD.showError("Username/Image can't be empty")
             return
         }
         
         DataService.dataService.CreateNewRoom((FIRAuth.auth()?.currentUser)!, caption: captionText, data: data)
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
         } else {
             ProgressHUD.showError("Username/Image can't be empty")
         }

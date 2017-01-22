@@ -196,6 +196,7 @@
 					C7DCCF6A1D5515F500533079 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 2QJCV27NGS;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -420,6 +421,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PMChaaty/PMChaaty-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -435,6 +437,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Prateek.PMChaaty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PMChaaty/PMChaaty-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

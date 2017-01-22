@@ -38,50 +38,50 @@ class ChatVC: UIViewController {
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChatVC.showOrHideKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChatVC.showOrHideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.showOrHideKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.showOrHideKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         
     }
     
     @IBOutlet weak var constraintToBottom: NSLayoutConstraint!
     
-    func showOrHideKeyboard(notification:NSNotification) {
+    func showOrHideKeyboard(_ notification:Notification) {
         if let keyboardInfo: Dictionary = notification.userInfo {
-            if notification.name == UIKeyboardWillShowNotification {
-                UIView.animateWithDuration(1, animations: { () in
-                    self.constraintToBottom.constant = (keyboardInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
+            if notification.name == NSNotification.Name.UIKeyboardWillShow {
+                UIView.animate(withDuration: 1, animations: { () in
+                    self.constraintToBottom.constant = (keyboardInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
                     self.view.layoutIfNeeded()
-                }) { (completed: Bool) -> Void in
+                }, completion: { (completed: Bool) -> Void in
                     
                     self.tableViewScrollToBottom(true)
                     
-                }
-            } else if notification.name == UIKeyboardWillHideNotification {
-                UIView.animateWithDuration(1, animations: {  () in
+                }) 
+            } else if notification.name == NSNotification.Name.UIKeyboardWillHide {
+                UIView.animate(withDuration: 1, animations: {  () in
                     self.constraintToBottom.constant = 0
                     self.view.layoutIfNeeded()
-                }) { (completed: Bool) -> Void in
+                }, completion: { (completed: Bool) -> Void in
                    
                     self.tableViewScrollToBottom(true)
                     
-                }
+                }) 
             }
         }
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     
-    @IBAction func sendBtnPressed(sender: AnyObject) {
+    @IBAction func sendBtnPressed(_ sender: AnyObject) {
         self.chatTextField.resignFirstResponder()
-        if chatTextField != "" {
+        if chatTextField.text != "" {
             if let user = FIRAuth.auth()?.currentUser {
                 DataService.dataService.CreateNewMessage(user.uid, roomId: roomId, textMessage: chatTextField.text!)
                 self.tableViewScrollToBottom(true)
@@ -100,29 +100,29 @@ class ChatVC: UIViewController {
 }
 
 extension ChatVC: UITableViewDelegate , UITableViewDataSource {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let messageSnapshot = messages[indexPath.row]
         let message = messageSnapshot.value as! Dictionary<String, AnyObject>
         let messageId = message["senderId"] as! String
 
         
         if messageId == DataService.dataService.currentUser?.uid {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.cellIdMessageReceived, forIndexPath: indexPath) as! ChatTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdMessageReceived, for: indexPath) as! ChatTableViewCell
             cell.configureCell(messageId,message:message)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.cellIdMessageSend, forIndexPath: indexPath) as! ChatTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdMessageSend, for: indexPath) as! ChatTableViewCell
             cell.configureCell(messageId,message:message)
             return cell
         }
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let messageSnapshot = messages[indexPath.row]
         let message = messageSnapshot.value as! Dictionary<String, AnyObject>
@@ -137,19 +137,19 @@ extension ChatVC: UITableViewDelegate , UITableViewDataSource {
         }
     }
     
-    func tableViewScrollToBottom(animated: Bool) {
+    func tableViewScrollToBottom(_ animated: Bool) {
         
         let delay = 0.1 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
         
-        dispatch_after(time, dispatch_get_main_queue(), {
+        DispatchQueue.main.asyncAfter(deadline: time, execute: {
             
             let numberOfSections = self.tableView.numberOfSections
-            let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections-1)
+            let numberOfRows = self.tableView.numberOfRows(inSection: numberOfSections-1)
             
             if numberOfRows > 0 {
-                let indexPath = NSIndexPath(forRow: numberOfRows-1, inSection: (numberOfSections-1))
-                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
+                let indexPath = IndexPath(row: numberOfRows-1, section: (numberOfSections-1))
+                self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: animated)
             }
             
         })
@@ -157,7 +157,7 @@ extension ChatVC: UITableViewDelegate , UITableViewDataSource {
     
 }
 extension ChatVC: UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }

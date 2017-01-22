@@ -18,10 +18,10 @@ class DataService {
     
     static let dataService = DataService()
     
-    private var _BASE_REF = roofRef
-    private var _ROOM_REF = roofRef.child("rooms")
-    private var _MESSAGE_REF = roofRef.child("messages")
-    private var _PEOPLE_REF = roofRef.child("people")
+    fileprivate var _BASE_REF = roofRef
+    fileprivate var _ROOM_REF = roofRef.child("rooms")
+    fileprivate var _MESSAGE_REF = roofRef.child("messages")
+    fileprivate var _PEOPLE_REF = roofRef.child("people")
     
     var currentUser : FIRUser? {
         return FIRAuth.auth()!.currentUser!
@@ -45,13 +45,13 @@ class DataService {
     
     var fileUrl:String!
     
-    func CreateNewRoom(user:FIRUser, caption: String, data : NSData) {
-        let filePath = "\(user.uid)/\(Int(NSDate.timeIntervalSinceReferenceDate()))"
+    func CreateNewRoom(_ user:FIRUser, caption: String, data : Data) {
+        let filePath = "\(user.uid)/\(Int(Date.timeIntervalSinceReferenceDate))"
         let metaData = FIRStorageMetadata()
         metaData.contentType = "image/jpg"
-        storageRef.child(filePath).putData(data, metadata: metaData) { (metadata, error) in
+        storageRef.child(filePath).put(data, metadata: metaData) { (metadata, error) in
             if let error = error {
-                print("Error Uploading: \(error.description)")
+                print("Error Uploading: \(error)")
                 return
             }
             
@@ -67,8 +67,8 @@ class DataService {
         
     }
     
-    func fetchDataFromServer(callback: (Room) -> ()) {
-        DataService.dataService.ROOM_REF.observeEventType(.ChildAdded, withBlock:  { (snapshot) in
+    func fetchDataFromServer(_ callback: @escaping (Room) -> ()) {
+        DataService.dataService.ROOM_REF.observe(.childAdded, with:  { (snapshot) in
             let room = Room(key: snapshot.key, snapshot: snapshot.value as! Dictionary<String, AnyObject>)
             callback(room)
         })
@@ -76,17 +76,17 @@ class DataService {
     
     
     //Sign Up
-    func SignUp(username:String, email:String, password:String, data:NSData) {
-        FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: { (user, error) in
+    func SignUp(_ username:String, email:String, password:String, data:Data) {
+        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
             if let error = error {
                 print(error.localizedDescription)
                 return
             }
             let changeRequest = user?.profileChangeRequest()
             changeRequest?.displayName = username
-            changeRequest?.commitChangesWithCompletion({ (error) in
+            changeRequest?.commitChanges(completion: { (error) in
                 if let error = error {
-                    print(error.debugDescription)
+                    print(error)
                     return
                 }
             })
@@ -94,15 +94,15 @@ class DataService {
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
             
-            self.storageRef.child(filePath).putData(data, metadata: metadata, completion: { (metadata, error) in
+            self.storageRef.child(filePath).put(data, metadata: metadata, completion: { (metadata, error) in
                 if let error = error {
                     print(error.localizedDescription)
                     return
                 }
                 self.fileUrl = metadata?.downloadURLs![0].absoluteString
                 let changeRequestPhoto = user!.profileChangeRequest()
-                changeRequestPhoto.photoURL = NSURL(string: self.fileUrl)
-                changeRequestPhoto.commitChangesWithCompletion({ (error) in
+                changeRequestPhoto.photoURL = URL(string: self.fileUrl)
+                changeRequestPhoto.commitChanges(completion: { (error) in
                     if let error = error {
                         print(error.localizedDescription)
                         return
@@ -114,7 +114,7 @@ class DataService {
                 
                 ProgressHUD.showSuccess("Succeeded.")
                 
-                let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.login()
                 
             })
@@ -123,14 +123,14 @@ class DataService {
     }
     
     //Login Func
-    func logIn(email:String , password: String) {
-     FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (user, error) in
+    func logIn(_ email:String , password: String) {
+     FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
         if let error = error {
             print(error.localizedDescription)
             return
         }
         ProgressHUD.showSuccess("Succedded")
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.login()
         
      })
@@ -146,29 +146,29 @@ class DataService {
             try firebaseAuth?.signOut()
            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let logInVC = storyboard.instantiateViewControllerWithIdentifier("LogInVC")
-            UIApplication.sharedApplication().keyWindow?.rootViewController = logInVC
+            let logInVC = storyboard.instantiateViewController(withIdentifier: "LogInVC")
+            UIApplication.shared.keyWindow?.rootViewController = logInVC
         } catch let signOutError as NSError {
             print("Error Signing Out : \(signOutError)")
         }
     }
     
     //Update Profile
-    func SaveProfile(username:String, email: String, data:NSData) {
+    func SaveProfile(_ username:String, email: String, data:Data) {
         let user = FIRAuth.auth()?.currentUser!
         let filePath = "profileImage/\(user!.uid)"
         let metaData = FIRStorageMetadata()
         metaData.contentType = "image/jpg"
-        self.storageRef.child(filePath).putData(data, metadata: metaData) { (metadata, error) in
+        self.storageRef.child(filePath).put(data, metadata: metaData) { (metadata, error) in
             if let error = error {
                 print("Error uplaoding: \(error.localizedDescription)")
                 return
             }
             self.fileUrl = metadata!.downloadURLs![0].absoluteString
             let changeRequestProfile = user!.profileChangeRequest()
-            changeRequestProfile.photoURL = NSURL(string: self.fileUrl)
+            changeRequestProfile.photoURL = URL(string: self.fileUrl)
             changeRequestProfile.displayName = username
-            changeRequestProfile.commitChangesWithCompletion({ (error) in
+            changeRequestProfile.commitChanges(completion: { (error) in
                 if let error = error {
                     print(error.localizedDescription)
                     ProgressHUD.showError("Network Error")
@@ -192,7 +192,7 @@ class DataService {
         
     }
     
-    func CreateNewMessage(userId:String, roomId: String, textMessage: String) {
+    func CreateNewMessage(_ userId:String, roomId: String, textMessage: String) {
         let idMessage = roofRef.child("messages").childByAutoId()
         DataService.dataService.MESSAGE_REF.child(idMessage.key).setValue(["message" : textMessage, "senderId" : userId])
         DataService.dataService.ROOM_REF.child(roomId).child("messages").child(idMessage.key).setValue(true)
@@ -200,37 +200,37 @@ class DataService {
         
     }
     
-    func fetchMessageFromServer(roomId:String, callback : (FIRDataSnapshot) -> ()) {
-        DataService.dataService.ROOM_REF.child(roomId).child("messages").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+    func fetchMessageFromServer(_ roomId:String, callback : @escaping (FIRDataSnapshot) -> ()) {
+        DataService.dataService.ROOM_REF.child(roomId).child("messages").observe(.childAdded, with: { (snapshot) -> Void in
             
-        DataService.dataService.MESSAGE_REF.child(snapshot.key).observeEventType(.Value, withBlock: {
+        DataService.dataService.MESSAGE_REF.child(snapshot.key).observe(.value, with: {
             snap -> Void in
             callback(snap)
             })
         })
     }
     //Google Sign-In
-    func loginWithGoogle(authrntication: GIDAuthentication) {
-        
-        let credential = FIRGoogleAuthProvider.credentialWithIDToken(authrntication.idToken, accessToken: authrntication.accessToken)
-        FIRAuth.auth()?.signInWithCredential(credential, completion: { (user:FIRUser?, error:NSError?) in
-            if error != nil {
-                print(error?.localizedDescription)
-                return
-            }  else {
-                let email = user?.email
-                let username = user?.displayName
-                let imageUrle = user?.photoURL
-                let imageUrl = String(imageUrle!)
-                
-                self.PEOPLE_REF.child((user?.uid)!).updateChildValues(["username" : username!, "email": email! , "profileImage" : imageUrl])
-                
-                ProgressHUD.showSuccess("Succedded")
-                let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                appDelegate.login()
-            }
-        })
-        
-    }
+//    func loginWithGoogle(_ authrntication: GIDAuthentication) {
+//        
+//        let credential = FIRGoogleAuthProvider.credential(withIDToken: authrntication.idToken, accessToken: authrntication.accessToken)
+//        FIRAuth.auth()?.signIn(with: credential, completion: { (user:FIRUser?, error:NSError?) in
+//            if error != nil {
+//                print(error?.localizedDescription)
+//                return
+//            }  else {
+//                let email = user?.email
+//                let username = user?.displayName
+//                let imageUrle = user?.photoURL
+//                let imageUrl = String(imageUrle!)
+//                
+//                self.PEOPLE_REF.child((user?.uid)!).updateChildValues(["username" : username!, "email": email! , "profileImage" : imageUrl])
+//                
+//                ProgressHUD.showSuccess("Succedded")
+//                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+//                appDelegate.login()
+//            }
+//        })
+//        
+//    }
     
 }

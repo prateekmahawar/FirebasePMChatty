@@ -32,7 +32,7 @@ class ProfileTableVC: UITableViewController , UINavigationControllerDelegate , U
             username.text = user.displayName
             email.text = user.email
             if user.photoURL != nil {
-                if let data = NSData(contentsOfURL: user.photoURL!) {
+                if let data = try? Data(contentsOf: user.photoURL!) {
                     self.profileImage.image = UIImage.init(data: data)
                 }
             }
@@ -43,33 +43,33 @@ class ProfileTableVC: UITableViewController , UINavigationControllerDelegate , U
     }
 
     
-    func selectPhoto(tap:UITapGestureRecognizer) {
+    func selectPhoto(_ tap:UITapGestureRecognizer) {
         
         if GIDSignIn.sharedInstance().currentUser == nil {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            imagePicker.sourceType = .Camera
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
         } else {
-            imagePicker.sourceType = .PhotoLibrary
+            imagePicker.sourceType = .photoLibrary
         }
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true, completion: nil)
         } else {
             ProgressHUD.showError("Edit not allowed")
         }
     }
     //Imagepicker delegate
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         profileImage.image = image
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     
-    @IBAction func saveBtnPressed(sender: AnyObject) {
-        var data = NSData()
+    @IBAction func saveBtnPressed(_ sender: AnyObject) {
+        var data = Data()
         data = UIImageJPEGRepresentation(profileImage.image!, 0.1)!
         ProgressHUD.show("Please Wait...", interaction: false)
         DataService.dataService.SaveProfile(username.text!, email: email.text!, data: data)

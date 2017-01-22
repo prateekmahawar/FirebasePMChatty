@@ -30,21 +30,21 @@ class SignUpVC: UIViewController {
 
     }
     
-    func selectPhoto(tap: UITapGestureRecognizer) {
+    func selectPhoto(_ tap: UITapGestureRecognizer) {
         self.imagePicker.delegate = self
         self.imagePicker.allowsEditing = true
         
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            self.imagePicker.sourceType = .Camera
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            self.imagePicker.sourceType = .camera
         } else {
-            self.imagePicker.sourceType = .PhotoLibrary
+            self.imagePicker.sourceType = .photoLibrary
         }
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true, completion: nil)
     }
 
-    @IBAction func signUpBtnPressed(sender: AnyObject) {
-        guard let email = emailTextField.text where !email.isEmpty , let password = passwordTextField.text where !password.isEmpty , let username = usernameTextField.text where !username.isEmpty else { return }
-        var data = NSData()
+    @IBAction func signUpBtnPressed(_ sender: AnyObject) {
+        guard let email = emailTextField.text, !email.isEmpty , let password = passwordTextField.text, !password.isEmpty , let username = usernameTextField.text, !username.isEmpty else { return }
+        var data = Data()
         data = UIImageJPEGRepresentation(profileImage.image!, 0.1)!
         
         //Signing Up
@@ -54,8 +54,8 @@ class SignUpVC: UIViewController {
     }
     
  
-    @IBAction func cancelBtnTapped(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelBtnTapped(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
 
 
@@ -65,14 +65,14 @@ class SignUpVC: UIViewController {
 extension SignUpVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //Image Picker delegates
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         selectedPhoto = info[UIImagePickerControllerEditedImage] as? UIImage
         self.profileImage.image = selectedPhoto
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

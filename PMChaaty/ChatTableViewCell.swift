@@ -23,15 +23,15 @@ class ChatTableViewCell: UITableViewCell {
         
     }
 
-    func configureCell(idUser:String, message: Dictionary <String, AnyObject>) {
+    func configureCell(_ idUser:String, message: Dictionary <String, AnyObject>) {
         self.messageTextLabel.text = message["message"] as! String
 
-        DataService.dataService.PEOPLE_REF.child(idUser).observeEventType(.Value, withBlock: { snapshot -> Void in
+        DataService.dataService.PEOPLE_REF.child(idUser).observe(.value, with: { snapshot -> Void in
             let dict = snapshot.value as! Dictionary<String, AnyObject>
             if let imageUrle = dict["profileImage"]  {
               let imageUrl = imageUrle as! String
             if imageUrl.hasPrefix("gs://")  {
-                FIRStorage.storage().referenceForURL(imageUrl).dataWithMaxSize(INT64_MAX, completion: { (data, error) in
+                FIRStorage.storage().reference(forURL: imageUrl).data(withMaxSize: INT64_MAX, completion: { (data, error) in
                     if let error = error {
                         print("Error Downloading: \(error)")
                         return
@@ -39,15 +39,15 @@ class ChatTableViewCell: UITableViewCell {
                     self.profileImageView.image = UIImage.init(data: data!)
                 })
             } else {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                    let data = NSData(contentsOfURL: NSURL(string: imageUrl)!)
+                DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+                    let data = try? Data(contentsOf: URL(string: imageUrl)!)
                     
                     var image : UIImage?
                     if data != nil {
                         
                         image = UIImage(data: data!)
                     }
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         
                         self.profileImageView.image = image
                         

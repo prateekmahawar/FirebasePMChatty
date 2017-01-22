@@ -14,18 +14,18 @@ class RoomCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailPhoto: UIImageView!
     @IBOutlet weak var captionLbl: UILabel!
     
-    func configureCell(room: Room){
+    func configureCell(_ room: Room){
         self.captionLbl.text = room.caption
         if let imageUrl = room.thumbnail {
             if imageUrl.hasPrefix("gs://") {
-                FIRStorage.storage().referenceForURL(imageUrl).dataWithMaxSize(INT64_MAX, completion: { (data, error) in
+                FIRStorage.storage().reference(forURL: imageUrl).data(withMaxSize: INT64_MAX, completion: { (data, error) in
                     if let error = error {
                         print("Error Downloading : \(error)")
                         return
                     }
                     self.thumbnailPhoto.image = UIImage.init(data: data!)
                 })
-            } else if let url = NSURL(string:imageUrl) , data = NSData(contentsOfURL: url) {
+            } else if let url = URL(string:imageUrl) , let data = try? Data(contentsOf: url) {
                 self.thumbnailPhoto.image = UIImage.init(data: data)
             }
             
