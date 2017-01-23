@@ -10,7 +10,9 @@
 import UIKit
 import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, GIDSignInUIDelegate ,GIDSignInDelegate  {
+    
+
     
     @IBOutlet weak var emailTxtField: UITextField!
     @IBOutlet weak var passwordTxtField: UITextField!
@@ -23,9 +25,9 @@ class LoginViewController: UIViewController {
         view.addGestureRecognizer(dismissKeyboard)
 //        
 //        //Google SignIn Delegate(GIDSignInUIDelegate, GIDSignInDelegate) Functions
-//        GIDSignIn.sharedInstance().clientID = "872245422297-slg7bp6liqsiqsdhfmlkuj3m3sua4oea.apps.googleusercontent.com"
-//        GIDSignIn.sharedInstance().uiDelegate = self
-//        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().clientID = "872245422297-slg7bp6liqsiqsdhfmlkuj3m3sua4oea.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
         
     }
     
@@ -43,21 +45,20 @@ class LoginViewController: UIViewController {
     }
 
     //Google Sign In Functions
-//    @IBAction func googleLoginBtnPressed(_ sender: AnyObject) {
-//        GIDSignIn.sharedInstance().signIn()
-//        
-//    }
-//    
-//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: NSError!) {
-//        
-//        if user != nil {
-//        print(user.authentication)
-//        ProgressHUD.show("Signing In....")
-//        DataService.dataService.loginWithGoogle(user.authentication)
-//        }
+    @IBAction func googleLoginBtnPressed(_ sender: AnyObject) {
+        GIDSignIn.sharedInstance().signIn()
         
     }
-    
+
+    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if user != nil {
+            print(user.authentication)
+            ProgressHUD.show("Signing In....")
+            DataService.dataService.loginWithGoogle(user.authentication)
+        }
+        
+    }
  
 
 
+}

@@ -210,27 +210,28 @@ class DataService {
         })
     }
     //Google Sign-In
-//    func loginWithGoogle(_ authrntication: GIDAuthentication) {
-//        
-//        let credential = FIRGoogleAuthProvider.credential(withIDToken: authrntication.idToken, accessToken: authrntication.accessToken)
-//        FIRAuth.auth()?.signIn(with: credential, completion: { (user:FIRUser?, error:NSError?) in
-//            if error != nil {
-//                print(error?.localizedDescription)
-//                return
-//            }  else {
-//                let email = user?.email
-//                let username = user?.displayName
-//                let imageUrle = user?.photoURL
-//                let imageUrl = String(imageUrle!)
-//                
-//                self.PEOPLE_REF.child((user?.uid)!).updateChildValues(["username" : username!, "email": email! , "profileImage" : imageUrl])
-//                
-//                ProgressHUD.showSuccess("Succedded")
-//                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-//                appDelegate.login()
-//            }
-//        })
-//        
-//    }
+    func loginWithGoogle(_ authrntication: GIDAuthentication) {
+
+        let credential = FIRGoogleAuthProvider.credential(withIDToken: authrntication.idToken, accessToken: authrntication.accessToken)
+    
+        FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
+            if error != nil {
+                print(error.debugDescription)
+                return
+            } else {
+                let email = user?.email
+                let username = user?.displayName
+                let imageUrle = user?.photoURL
+                let imageUrl = "\(imageUrle!)"
+                
+                self.PEOPLE_REF.child((user?.uid)!).updateChildValues(["username" : username!, "email": email! , "profileImage" : imageUrl])
+                ProgressHUD.showSuccess("Succedded")
+                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.login()
+            }
+        })
+        
+        
+    }
     
 }
